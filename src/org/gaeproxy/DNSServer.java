@@ -3,7 +3,6 @@ package org.gaeproxy;
 import android.content.Context;
 import android.util.Log;
 import android.util.Pair;
-import com.google.analytics.tracking.android.EasyTracker;
 import com.j256.ormlite.android.apptools.OpenHelperManager;
 import com.j256.ormlite.dao.Dao;
 import com.loopj.android.http.AsyncHttpClient;
@@ -428,7 +427,6 @@ public class DNSServer implements Runnable {
           updateCache(resp);
           sendDns(createDNSResponse(udpreq, parseIPString(addr)), dnsq, datagramSocket);
           Log.d(TAG, "DNS cache hit: " + questDomain);
-          EasyTracker.getTracker().trackEvent("dns", "resolve", questDomain, 0L);
         } else {
           synchronized (domains) {
             if (domains.contains(questDomain)) {

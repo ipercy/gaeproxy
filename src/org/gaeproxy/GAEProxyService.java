@@ -62,7 +62,6 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.util.Pair;
 import android.widget.RemoteViews;
-import com.google.analytics.tracking.android.EasyTracker;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -74,8 +73,6 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.InetAddress;
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpResponse;
@@ -574,8 +571,6 @@ public class GAEProxyService extends Service {
     IntentFilter filter = new IntentFilter(Intent.ACTION_SHUTDOWN);
     registerReceiver(mShutdownReceiver, filter);
 
-    EasyTracker.getTracker().trackEvent("service", "start", getVersionName(), 0L);
-
     notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
 
     settings = PreferenceManager.getDefaultSharedPreferences(this);
@@ -604,8 +599,6 @@ public class GAEProxyService extends Service {
   /** Called when the activity is closed. */
   @Override
   public void onDestroy() {
-
-    EasyTracker.getTracker().trackEvent("service", "stop", getVersionName(), 0L);
 
     if (mShutdownReceiver != null) {
       unregisterReceiver(mShutdownReceiver);
